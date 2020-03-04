@@ -1,0 +1,879 @@
+---
+title: "Data literacy"
+subtitle: "introduction à une approche critique de la donnée"
+author: "Sylvain Lapoix"
+date: "IPJ - `r format(Sys.Date(), format = '%d/%m/%Y')`"
+output:
+  SlidesDatactivist::moon_reader:
+    css: [default, datactivist, datactivist-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: ["macros.js", "matomo.js", "https://platform.twitter.com/widgets.js"]
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>`
+params:
+  event: IPJ - dataliteracy
+  slug: lagrosseconf
+---
+
+layout: true
+
+<style>
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #e95459;
+}
+
+</style>
+
+
+`r paste0("<div class='my-footer'><span>", params$event, "</span> <center><div class=logo><img src='https://github.com/datactivist/slides_datactivist/raw/master/inst/rmarkdown/templates/xaringan/resources/img/fond_noir_monochrome.png' width='100px'></center></span></div>")` 
+
+
+---
+
+class: center, middle
+
+Ces slides en ligne : `r paste0("http://datactivist.coop/", params$slug)`
+
+Sources : `r paste0("https://github.com/datactivist/", params$slug)`
+
+
+Les productions de Datactivist sont librement réutilisables selon les termes de la licence [Creative Commons 4.0 BY-SA](https://creativecommons.org/licenses/by-sa/4.0/legalcode.fr).
+
+<BR>
+<BR>
+
+![](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-sa.png)
+
+
+---
+
+background-image: url("https://media.giphy.com/media/OnJLRvXvAmvPW/giphy.gif")
+class: center, top, inverse
+
+# Introduction : les données et vous
+
+---
+
+
+class: center, middle
+
+## Questions rituelles :
+
+--
+
+### Que vous a-t-on dit de ce cours ?
+
+--
+
+### Vous considérez-vous : littéraire ? Scientifique ? Autre ?
+
+---
+
+### Votre rapport à la donnée
+
+.pull-left[
+D'où vous viennent ces mots ? Ces positions par rapport à ces disciplines ?
+
+Vous ont-ils déjà dissuadé d'entreprendre un apprentissage technique, scientifique ou informatique ?
+
+Depuis 1999 (Spencer, Steel & Quinn, 1999), [de nombreuses études](https://www.tandfonline.com/doi/full/10.1080/23743603.2018.1559647) ont démontré que les stéréotypes de genre sur les disciplines affectaient de manière sensible les performances effectives.
+
+L'auto-disqualification est parfois plus handicapante que l'incompétence.
+]
+
+
+.pull-right[
+![](./img/ihatemaths.png)
+
+.footnote[Source : [SMBC](https://www.smbc-comics.com/comic/what-its-like), merci à Robin Ryder pour la découverte.]
+
+]
+
+
+---
+
+.pull-left[
+### [La minute de Pascal Prost](https://www.koreus.com/video/viktorovitch-lecon-journalisme.html)
+
+
+![](./img/pascalprost.png)
+
+> *"**Nous les journalistes, nous faisons des raccourcis**"*.
+]
+
+
+---
+
+.pull-left[
+### [La minute de Pascal Prost](https://www.koreus.com/video/viktorovitch-lecon-journalisme.html)
+
+
+![](./img/pascalprost.png)
+
+> *"**Nous les journalistes, nous faisons des raccourcis**"*.
+]
+
+.pull-right[
+Cet extrait pose plusieurs questions :
+* la notion de catégorie ;
+* l'évaluation d'un critère mathématique (majorité) ;
+* le rapport à la preuve.
+
+Le fossé qui se creuse entre les éditorialistes et les scientifiques est acté d'un côté comme de l'autre par le refus des premier·ère·s d'adopter ou envisager la validité voire la pertinence des méthodologies mobilisées par les seconds.
+
+Ils et elles semblent avoir acté le fait que la "méthode journalistique" est incompatible avec une forme de rigueur d'inspiration scientifique.
+
+]
+
+---
+
+
+### Objectif de ce cours
+
+Ce cours vise à vous introduire à **une approche critique de la donnée** et vous fournir des éléments de culture et de méthode utile à sa déconstruction et à son utilisation raisonnée et pertinente.
+
+Nous allons pour cela suivre le cycler de production de la donnée en s'intéressant aux productions et aux réutilisations, a fortiori journalistiques.
+
+Notre démarche se déroulera en quatre parties :
+1. définir et convenir
+2. collecter et compiler
+3. traiter et analyser
+4. évaluer et citer
+
+
+---
+
+
+background-image: url("https://media.giphy.com/media/JrGlLg0Ycz3XrufJ40/giphy.gif")
+class: center, top, inverse
+
+# I : définir et convenir
+
+
+---
+
+
+background-image: url("https://media.giphy.com/media/gr1ayQmhUafWE/giphy.gif")
+class: center, top, inverse
+
+### Qu'entend-on exactement par "data" ?
+
+---
+
+### Combien de données pouvons-nous récolter dans cette pièce ?
+
+--
+
+Réponse : une infinité ! Car la donnée est précisément *"ce qu'on récolte"*.
+
+---
+  
+### [Quantifier, c'est convenir puis mesurer](http://www.pressesdesmines.com/media/extrait/PourSocioHistExtr.pdf)
+
+.pull-left[
+> Le verbe quantifier est employé ici dans un sens large : **exprimer et
+faire exister sous une forme numérique ce qui, auparavant, était exprimé par
+des mots et non par des nombres**.
+]
+
+.pull-right[
+![](img/gouverner_par_les_nombres.jpg)
+]
+
+---
+
+### Variables / Valeurs / Données
+
+Chaque élément d'un ensemble est appelé **observation**.
+
+Pour **définir** un objet, nous avons besoin de critères qui permettent de différencier : des éléments discriminants (dans le sens propre du terme). En un mot : des **variables**.
+
+Nous renseignons chaque **variable** d'un terme, d'une formule, d'un mot ... la forme même de ce mot est déterminante. Nous parlerons de la **valeur** de la variable.
+
+Le fait de consigner ces **valeurs** pour ces **variables** produit une collection qui peut permettre de mieux comprendre ce qu'elle décrit.
+
+Ces éléments enregistrés sur une personne, un événement, un lieu ou tout autre entité du monde réel, **ce sont des données**. Et leur collection **une base de données**.
+
+Le choix de ce qu'on observe, de la façon dont on l'observe et suivant quelles grilles de lecture peut modifier de manière drastique le regard porté sur le monde.
+
+---
+
+class: inverse
+.center[
+![](./img/deardata_complains.jpeg)
+]
+Durant un an, Giorgia Lupi et Stefanie Postavec ont échangé chaque semaine une carte postale avec une visualisation de données portant sur un sujet commun de collecte de données pour apprendre à se connaître. De cette correspondance est né le projet [Dear data](http://www.dear-data.com/theproject).
+
+---
+
+### Les types de données
+
+#### Selon vous, combien y a-t-il de types de données ?
+
+--
+
+En informatique, on distingue trois grandes catégories :
+* les données numériques (avec lesquelles on peut calculer) ;
+* les chaînes de caractères / strings ;
+* les données booléennes (ou données binaires).
+
+Vérifier si une condition est VRAI ou FAUSSE est la base de toute opération informatique. Le format binaire est le format de stockage informatique de base. Le *bit*, plus petite unité de stockage, ne peut contenir qu'une donnée des deux seuls types possibles :
+* OFF - 0 - FALSE - NOT SET ;
+* ON - 1 - TRUE - SET.
+
+Le code American Standard Code for Information Interchange (ASCII) utilise 7 bits, soit 128 combinaisons, permettant de stocker tout l'alphabet latin et quelques signes de ponctuations et signaux (NUL, DEL, TAB, etc.).
+
+
+---
+
+background-image: url(./img/numerusclausus.png)
+class: center, top, inverse
+
+# Pourquoi produit-on des données ?
+
+---
+
+## Un processus complexe
+
+Une donnée n'est ni gratuite, ni immanente.
+
+Produire de la donnée nécessite :
+* des moyens
+* des motivations
+* une méthode.
+
+Les données ne sont pas produites par hasard.
+
+---
+
+## La Bible : un best-seller plein de recensements
+
+**Dans l'Ancien Testament**
+* Le livre est Nombres comporte deux recensements ;
+* David est puni pour avoir dénombré Israël et Juda ;
+
+**Dans le Nouveau Testament**
+* c'est à l'occasion du recensement de l'Empereur Auguste que Marie et Joseph quittent Nazareth pour se rendre à Bethléem.
+
+--
+
+Le contexte politique est incertain mais plusieurs auteurs romains attestent de ce projet :
+Auguste souhaitait faire "un inventaire des ressources de son empire" : *"le nombre des citoyens et des alliés en armes, celui des flottes, des royaumes, des provinces"* (Tacite, Annales, 1,11)
+
+---
+
+### Lever les impôts et faire la guerre
+
+.pull-left[
+> *"combien et pourquoi"*, Vauban.
+
+En 1676, Vauban ordonne le recensement de Valenciennes : le premier recensement *"tête par tête"* de l'histoire de France.
+
+Son objectif : *"actifs économiques et démographiques"*.
+
+.footnote[Source : [Vauban, inventeur des recensements](https://www.persee.fr/doc/adh_0066-2062_1975_num_1975_1_1282), Vilquin, 1975]
+]
+
+
+.pull-right[
+Recensement de la Nouvelle-France par Jean Talon (1666).
+![](./img/recensement_jeantalon.jpeg)
+
+]
+
+---
+
+### Combien ça coûte un recensement ?
+
+Le budget du recensement est fixé par la loi. En l'occurrence, [le décret du 17 décembre 2015](https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000031632586&categorieLien=id) :
+* 1.72€ par personne et 1.13€ par logement en "métropole" ;
+* 2.05€ par personne et 1.36€ par logement dans les départements d'Outre-Mer, Saint-Pierre-et-Miquelon, Saint-Barthélemy et Saint-Martin.
+
+Ces dernières années, le coût a totalisé environ 20 millions d'euros par an ([Sénat, 2017](https://www.senat.fr/questions/base/2017/qSEQ171202311.html)).
+
+Et ça prend du temps : quatre ans de collecte, compilation, traitement et publication des résultats.
+
+---
+
+### D'où vient l'heure officielle ?
+
+--
+
+.pull-left[
+Le *"Greenwich Mean Time"* (**GMT**) fut établit par le Royal Observatory de Greenwich (à Londres). Il fut dans un premier temps utilisé comme référence maritime (bien que celle-ci resta largement solaire).
+
+Adopté par la Railway Clearing House en 1847 et par la plupart des compagnies de chemin de fer sous le nom de "*railway time"* ("heure ferroviaire"), il devint progressivement l'heure officielle au Royaume-Uni.
+]
+
+.pull-right[
+![](./img/greenwich_clock.jpg)
+]
+
+---
+
+
+background-image: url("https://media.giphy.com/media/VFFIF3bGrV1Bu/giphy.gif")
+class: center, top, inverse
+
+# Comment collecter les données ?
+
+---
+
+
+## Capter le signal
+
+La production de la donnée suppose une collecte.
+
+Dans certains cas, la donnée est perceptible par les sens ou des instruments de mesures. Il s'agira alors de s'accorder sur les conventions (outils, notations et unités de mesure).
+
+Si la donnée n'est pas directement perceptible, il sera nécessaire de trouver des indices ou des témoignages indirects.
+
+Si la donnée est sociale, il faudra établir un protocole de collecte nécessitant de nombreux préalables (population, modalités de collecte, modalités de compilation ...).
+
+Chacun de ces cas de figure nécessite de faire des choix qui influent directement sur la collecte et donc sur les données collectées.
+
+
+
+
+---
+
+### Que mesure un thermomètre ? (question piège)
+
+![](img/thermometre.png)
+
+
+
+---
+
+
+background-image: url("https://media.giphy.com/media/BYv467aAFGHHG/giphy.gif")
+class: center, top, inverse
+
+## C'est ce qu'on appel un "proxy"
+
+
+
+---
+
+### La température corporelle
+
+Comment est né le consensus suivant lequel les adultes humains ont une température corporelle en bonne santée de 37°C ?
+
+--
+
+.pull-left[
+En 1868, un médecin allemand, **Karl Reinhold August Wunderlich** publie *Das Verhalten der Eigenwarme in Krankenheiten* dans lequel il pose à 37°C la *"température normale du corps adulte en bonne santé"*.
+
+Sa méthodologie était la suivante :
+* 25000 patient·e·s ;
+* 1M de relevés de température ;
+* différentes heures.
+
+Il intègre deux variables complémentaires, le genre et la race (avec des réserves).
+]
+
+.pull-righ[
+.center[
+![](./img/wunderlich.jpg)
+]
+
+[Son étude a depuis été testée](https://jamanetwork.com/journals/jama/article-abstract/400116) et légèrement corrigée.
+
+Source : [BBC, The mathematics of fever](https://www.bbc.co.uk/programmes/w3cswk3g).
+]
+
+---
+
+### Le besoin de définition
+
+Quelle est [la définition du chômage](https://www.insee.fr/fr/metadonnees/definition/c1129) ?
+
+--
+
+Définition (BIT, 1982) :
+* un chômeur est une personne en âge de travailler (15 ans ou plus) qui répond simultanément à trois conditions :
+* être sans emploi, c'est à dire ne pas avoir travaillé au moins une heure durant une semaine de référence ;
+* être disponible pour prendre un emploi dans les 15 jours ;
+* avoir cherché activement un emploi dans le mois précédent ou en avoir trouvé un qui commence dans moins de trois mois.
+
+--
+
+Comment peut-on le faire baisser sans modifier la définition ?
+
+--
+
+Tout le problème est dans la question : veut-on changer la société ou la valeur de l'indicateur ?
+
+---
+
+### Les définitions peuvent être vectrices de représentations
+
+Exemple : le "chef de famille".
+
+![](./img/personnedereference.png)
+
+.footnote[Source : [Insee](https://www.insee.fr/fr/metadonnees/definition/c1192)]
+
+---
+
+background-image: url("https://media.giphy.com/media/Yn8Lkk4PtbNcY/giphy.gif")
+class: center, top, inverse
+
+# II : collecter et compiler
+
+---
+
+### Comment l'Etat sait-il que vous existez ?
+
+--
+
+*.red[Le sachiez-tu ?]*
+> *"Le fait, pour une personne ayant assisté à un accouchement, de ne pas faire la déclaration prescrite par l'article 56 du code civil dans les délais fixés par l'article 55 du même code est puni de six mois d'emprisonnement et de 3 750 euros d'amende."*
+
+Source : [Article 433-18-1](https://www.legifrance.gouv.fr/affichCode.do?idSectionTA=LEGISCTA000006165376&cidTexte=LEGITEXT000006070719) du Code pénal.
+---
+
+### Comment collecte-t-on des données sociales ?
+
+.pull-left[
+#### Registres
+* les sujets s'inscrivent ;
+* du fait d'obligations administratives ou légales ;
+* suivant un document / une source standard.
+
+Les registres sont aussi les fichiers qui collectent les données d'utilisation en informatique :
+*"to log-in"*/ *"s'enregistrer"*
+]
+
+.pull-right[
+#### Enquête
+* les sujets sont "enquếtés" ;
+* du fait d'une collecte d'information ;
+* suivant une méthodologie établie par avance.
+]
+
+
+---
+
+### Selon vous ...
+
+Selon vous, **registre** ou **enquête** ?
+
+--
+
+* Facebook ?
+* Les chiffres de la délinquance ?
+* Le chômage ?
+* Le recensement ?
+
+---
+
+### Nous produisons des données passivement
+
+Une expérience édifiante : [Tell all telephone](https://www.zeit.de/datenschutz/malte-spitz-data-retention) (Die Zeite, 2009).
+
+![](./img/tellall_telephone.png)
+
+--
+L'occasion de parler de *"big data"*.
+
+---
+
+### Pourquoi une enquête plutôt qu'un registre ?
+Extrait de I, Daniel Blake (Ken Loach)
+
+https://www.youtube.com/watch?v=2tGE73xC6xE
+
+---
+
+## Conditions d'observation "naturelles"
+
+.pull-left[
+![](img/observation_conditionsnaturelles.jpeg)
+]
+
+.pull-right[
+Certains phénomènes permettent des *conditions naturelles d'observations*, c'est-à-dire une modification des conditions sans intervention des chercheur·se·s sur le milieu.
+
+Un article du New England Journal of Medicine a étudié [un tel événement](https://www.nejm.org/doi/full/10.1056/NEJMc1712773) (résumé à gauche).
+
+Ici, les conditions naturelles peuvent se résumer à *"l'extraction de 1% de la population des porteurs d'armes de leur milieu naturel"*.
+
+Comment formuleriez-vous l'hypothèse testé ?
+Quels en sont les facteurs ?
+]
+
+---
+
+## Environnement contrôlé
+
+.pull-left[
+![](./img/milgram_setup.png)
+
+Par Paulr — Travail personnel, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=2185982
+]
+.pull-right[
+#### L'expérience de Milgram
+
+S'agissant d'une expérience sur la psychologie humaine, il est essentiel de **neutraliser** le contrôle de l'environnement.
+
+Le protocole de Milgram visait à tester une hypothèse : la figure d'autorité suffit à annihiler les limites morales des individus.
+
+La variable testée ici est donc : **l'attribut de l'autortité**.
+
+Du fait de sa portée politique assumée, ce type d'expérience fait souvent l'objet de controverse :
+* [pour l'expérience de Milgram](http://www.internetactu.net/a-lire-ailleurs/retour-decevant-sur-lexperience-de-milgram/) ;
+* [pour l'expérience de Stanford](https://www.lemonde.fr/passeurdesciences/article/2016/07/31/prisonniers-pour-la-science_6001825_5470970.html).
+]
+
+---
+
+## Le choix des sujets
+
+### Les *"usual suspects"*
+
+Les expériencies privilégient des sujets dont le comportement est très bien documenté et qui varient peu au sein d'une population :
+* la mouche du vinaigre ;
+* les Islandais·es ;
+* les bactéries e-Coli.
+
+Ex. : CripsR Cas9
+
+.pull-left[
+A droite, un kit CrispR commercialisé par [The Odin](https://www.the-odin.com/diy-crispr-kit/) qui propose [un protocole expérimental](https://www.the-odin.com/crispr-bacterial-guide/) reposant sur des bactéries e-Coli non pathogène.
+]
+
+.pull-right[
+.center[
+![](./img/cripsr_kit.jpg)
+]
+]
+
+---
+
+### Un groupe de sujet essentiel : le "contrôle" ou témoin
+
+
+---
+
+### La question de la représentativité
+
+En science humaine se pose la question de la représentativité des sujets au sein d'une population : les variables qui peuvent influer sur les phénomènes sociaux à l'échelle des individus sont multiples et difficiles (voire impossibles) à isoler.
+
+Quels critères peuvent influer sur des individus au sein d'une population ?
+
+--
+
+* âge ;
+* genre ;
+* origine sociale ;
+* origine ethno-culturelle ;
+* santé ;
+* profession ;
+* niveau d'étude ;
+* lieu de naissance ;
+* lieu de résidence ;
+* lieu de travail ;
+* situation familiale ;
+* sports pratiqués ;
+* bière préférée ;
+* *ad lib.*
+
+---
+
+### *Ars Conjectandi*, probabilité et jeux de hasard
+
+Une série de découvertes scientifiques (Bernoulli, Poisson ...) ont contribué à l'élaboration d'un principe permettant l'échantillonnage représentatif des populations : **la loi des grands nombres**.
+
+![](./img/bernoulli.png)
+
+
+---
+
+### Critères de représentativité
+
+Dès lors, il "suffit" de constituer une échantillon **pertinent**, **représentatif statistiquement**, **représentatif démographiquement** ... et **sondable**.
+
+Exemple ici : [fiche méthodologique du baromètre Kantar](https://fr.kantar.com/opinion-publique/politique/2019/barometre-politique-novembre-2019/) pour Le Figaro d'octobre 2019 (rappel : cette publication est **[une obligation légale](http://www.commission-des-sondages.fr/oblig/obligations.htm)**)
+
+![](./img/methodo_sondage.png)
+
+---
+
+### Biais psychologique : l'insu
+
+Les modalités de recrutement des sujets peuvent contrevenir à un principe clef des expériences : *"[l'insu](https://www.eupati.eu/fr/developpement-et-essais-cliniques/le-concept-dinsu-dans-les-essais-cliniques/)"*.
+
+Parmi les facteurs à neutraliser, la connaissance des modalités du test (que ce soit chez les sujets ou chez les obsevateur·rice·s) est souvent essentiel pour éviter les interférences. D'où les deux modalités principales :
+* simple aveugle ;
+* double aveugle.
+
+---
+
+### Problème de recrutement
+
+.pull-left[
+Les modalités de recrutement peuvent biaiser de manière problématique les résultats : public sollicité, formulation du recrutement, exposé des intentions ...
+
+![](./img/openrelationship_study.png)
+]
+
+.pull-right[
+Dans [cet exemple](https://www.theguardian.com/lifeandstyle/2016/jul/22/gay-dating-open-relationships-work-study), les modalités de recrutement étaient les suivantes :
+
+*"In June 2015, Christopher Stults, a researcher at the Center for Health, Identity, Behavior, and Prevention Studies at New York University, launched a qualitative study of 10 gay couples in open relationships. He conducted 45-minute, individual interviews with each of these men and their partners, who ranged in age from 19 to 43."*
+
+Parmi les couples figurait le sien.
+
+Quels biais pouvons-nous lister ?
+]
+
+---
+
+## Le choix des variables
+
+### Elargir la perspective
+
+Exemple d'études qui vont contre les intuitions :
+Esther Duflot and deworming
+https://www.povertyactionlab.org/case-study/deworming-schools-improves-attendance-and-benefits-communities-over-long-term
+https://www.povertyactionlab.org/sites/default/files/Roll%20Call%20CEA_7.13.18_1.png
+
+MAIS controverse :
+https://blogs.worldbank.org/impactevaluations/worm-wars-anthology
+
+---
+
+### Compiler les données
+
+Exemple : la "pause" du changement climatique et la "cross de hockey".
+
+![](./img/pause_cc.png)
+
+.footnote[Source : [Le Monde, 04/05/2016](https://www.lemonde.fr/climat/article/2015/06/05/la-pause-du-rechauffement-climatique-etait-un-mirage_4647745_1652612.html)]
+
+
+---
+
+background-image: url("https://media.giphy.com/media/110dhxfJebYOTm/giphy.gif")
+class: center, top, inverse
+
+# III : traiter et analyser
+
+
+---
+
+## S'attarder sur la fabrique des chiffres
+
+Avez-vous déjà entendu dire que *"80% des lois votées en France étaient d'origine européenne"* ? Par qui ? Pour dire quoi ?
+
+--
+
+.pull-left[
+[
+Un groupe d'étude de Terra Nova](http://tnova.fr/rapports/normes-europeennes-loi-francaise-le-mythe-des-80) en en a identifié la source : il s'agit d'une citation tronquée de Jacques Delors en 1987
+
+> *"30 % de la législation belge est d’origine communautaire et [...] ce chiffre devrait passer à 60 % dans les dix ans qui viennent [...] Dans 10 ans, 80% de la législation économique, peut-être aussi fiscale et sociale, sera d'origine communautaire »"*
+]
+
+.pull-right[
+
+![](./img/mythe80pourcents.png)
+
+Au delà de l'anecdote, cela masque la complexité : qui vote ces lois ? Quelle est leur distribution par politique ? ... Tout un débat est escamoté.
+]
+
+---
+
+## S'attarder sur la fabrique des chiffres 2
+
+En 2012, Marine Le Pen sème sur les plateaux un chiffre que personne ne questionne : la déliquance et le crime [coûteraient 115 milliards d'euros par an à la France](http://owni.fr/2012/02/10/115-milliards-de-peurs/index.html). Une étude, pourtant, en détaillait la méthode.
+
+.center[
+![](./img/fn_insecurite.png)
+]
+---
+
+## Prendre garde aux angles morts mathématiques
+
+---
+
+### Différence entre moyenne et médiane
+
+Rappel :
+* `Moyenne = somme de l'ensemble / nombre de parties`
+* `Mediane = valeur qui coupe l'ensemble en deux groupes égaux en nombre de parties`
+
+La moyenne s'attache à l'ensemble, la médiane à ce qui le compose.
+La moyenne a tendance à lisser et donc à donner une représentation faussée des sous-populations qui composent un ensemble.
+
+--
+
+.pull-left[
+[Une étude réalisée par l'Insee sur les pratiques numériques](https://www.insee.fr/fr/statistiques/4241397) :
+
+![](./img/insee_fracturenumerique.png)
+]
+
+.pull-right[
+![](./img/insee_fracturenumerique_2.png)
+La moyenne cache une forte disparité en terme de distribution (notamment par tranches d'âge).
+]
+
+---
+
+### Envisager les différentes explications
+.center[
+![](./img/dividendes_investissements.jpeg)
+]
+Source : [Alternatives économiques](https://www.alternatives-economiques.fr/de-dividendes-assez-dinvestissements-1301201776430.html).
+
+---
+
+## Prendre gare aux modalités de raisonnement
+
+* le proxy problématique ;
+* le cherry-picking ;
+* *"l'effet cigogne"*.
+
+---
+
+background-image: url("https://media.giphy.com/media/hS4HVb6ATynMA/giphy.gif")
+class: center, top, inverse
+
+# IV : Evaluer et citer
+
+---
+
+
+background-image: url("https://media.giphy.com/media/HjeCoDcNkV4xq/giphy.gif")
+class: center, top, inverse
+
+# Publications scientifiques
+
+
+---
+
+background-image: url("https://media.giphy.com/media/VcizxCUIgaKpa/giphy.gif")
+class: center, top, inverse
+
+# Publications scientifiques
+
+### avec un autre GIF, j'avoue avoir hésité
+
+
+---
+
+## La question des publications scientifiques
+
+La question des publications scientifiques constitue un véritable enjeu politique, pour la science, pour le savoir mais aussi pour tout ce qui en dépend dans le débat public. Nous l'avions abordé à l'occasion de l'épisode 63 de #DATAGUEULE : [Privés de savoir ?](https://www.youtube.com/watch?v=WnxqoP-c0ZE).
+
+![](./img/datagueule_publicationscientifiques.png)
+
+---
+
+## Où les trouver ?
+
+* [Google Scholar](https://scholar.google.com/) : le moteur de recherche universitaire de Google ;
+* [Science Direct](https://www.sciencedirect.com/) : le moteur de recherche du leader du marché, Elsevier ;
+* [Research Gate](https://www.researchgate.net) : le plus grand réseau social de chercheur du monde qui référence de nombreuses publications ;
+* [Core](https://core.ac.uk/) : le moteur de recherche de la science en open access ;
+* [Open Edition](https://www.openedition.org/) : le plus grand éditeur de revues en open access au monde.
+
+---
+
+## Remonter le fil
+
+Certains articles relaient des communiqués de presse, des articles relayant des études, etc. Pour consulter l'étude d'origine, il est important de consulter la **source primaire** pour connaître la méthodologie utilisée.
+
+Pour trouver la source originelle, vous pouvez relever plusieurs indices :
+* **les identifiants uniques** : DOI, ISSN, etc.
+* **les caractéristiques discriminantes** : nom des auteur·rice·s, laboratoire, centre de recherche, université, pays, année de publication, etc.
+* **les faits saillants** : taille de l'échantillon, termes utilisés, points de méthodologie, etc.
+
+Une fois équipés de ces critères, vous pourrez aisément 
+
+---
+
+
+## Qui produit des données ?
+
+---
+
+## Dressez la fiche d'identité de ces organismes
+
+* Forme sociale ;
+* Gouvernance ;
+* Champs d'action (géographique, politique) ;
+* Publications ;
+* Sources de publications.
+
+---
+
+### Trois questions pour trouver (presque) tout
+
+1. qui a intérêt à la produire ?
+2. où a-t-elle intérêt à la diffuser ?
+3. sous quel format ?
+
+---
+
+## Les critères d'évaluation internes
+
+---
+
+### La p-valeur
+
+> "La p-value est la probabilité, sous H0, d’obtenir une statistique aussi extrême (pour ne pas dire aussi grande) que la valeur observée sur l’échantillon. Aussi, pour un seuil de significativité α\alphaα donné, on compare ppp et α, afin d’accepter, ou de rejeter H0.
+* si p <= α, on va rejeter l’hypothèse H0 (en faveur de H1)
+* si p > α, on va rejeter H1 (en faveur de H0)."
+
+Source : [Freakonomics](https://freakonometrics.hypotheses.org/2462).
+
+De manière conventionnelle : α = 0.05 = 5%.
+
+Dans les publications scientifiques, vous trouverez des formules du type :
+"pour les personnes ayant reçu le traitement B, la probabilité est de 27.8% (p = 3*10e-4".
+
+.footnote[Nous reviendrons demain sur les modalités de lecture de ces notations.]
+
+---
+
+### Bien citer
+
+Comment exprimer cette incertitude ?
+
+Une approche est offerte par les auteur·rice·s du rapport du Giec (ici, le [Summary for policy makers de l'AR5](https://archive.ipcc.ch/report/ar5/syr/)) :
+
+![](./img/giec_citation.png)
+
+
+---
+
+class: inverse, center, middle
+
+# Merci !
+
+
+Contact : [sylvainlapoix@gmail.com](mailto:sylvainlapoix@gmail.com) ou via WhatsApp
